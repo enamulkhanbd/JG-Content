@@ -1,0 +1,28 @@
+# Node dependencies
+node_modules/
+
+# Build outputs
+code.js
+code.js.map
+*.js.map
+
+# OS files
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+
+# VSCode settings
+.vscode/
+
+# Ignore esbuild cache (if any)
+.esbuild/
+
+# Ignore package lock files if not needed
+# package-lock.json
+yarn.lock 

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JustGo Content</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            padding: 16px;
+            border-bottom: 1px solid #e5e5e5;
+            background: #fafafa;
+        }
+
+        .title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            font-size: 14px;
+            color: #007aff;
+            cursor: pointer;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: opacity 0.2s;
+        }
+
+        .back-button:hover {
+            opacity: 0.7;
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 14px;
+        }
+
+        /* Launchpad Screen */
+        .launchpad {
+            display: block;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .category-button {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .category-button:hover {
+            background: #e9ecef;
+            border-color: #007aff;
+            transform: translateY(-1px);
+        }
+
+        .category-button:active {
+            transform: translateY(0);
+        }
+
+        /* Detail Screen */
+        .detail-screen {
+            display: none;
+        }
+
+        .content-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .content-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .content-item:hover {
+            background: #e9ecef;
+            border-color: #007aff;
+        }
+
+        .content-item:active {
+            background: #007aff;
+            color: white;
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .fade-out {
+            animation: fadeOut 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(-20px); }
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 40px 0;
+        }
+
+        /* Add or update CSS for square grid buttons */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            justify-items: center;
+            margin-top: 16px;
+        }
+        .category-button.square {
+            width: 132px;
+            height: 132px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 12px;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: background 0.2s, box-shadow 0.2s, border-color 0.2s;
+            cursor: pointer;
+        }
+        .category-button.square:hover {
+            background: #f8f9fa;
+            border-color: #bdbdbd;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Launchpad Screen -->
+        <div id="launchpad" class="launchpad">
+            <div class="header">
+                <h1 class="title">JustGo Content</h1>
+            </div>
+            <div class="content">
+                <div class="category-grid">
+                    <button class="category-button square" data-category="names">Names</button>
+                    <button class="category-button square" data-category="addresses">Addresses</button>
+                    <button class="category-button square" data-category="phones">Phones</button>
+                    <button class="category-button square" data-category="emails">Emails</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail Screen -->
+        <div id="detail-screen" class="detail-screen">
+            <div class="header">
+                <button class="back-button" id="back-button">
+                    ← Back
+                </button>
+                <h2 class="title" id="detail-title">Content</h2>
+            </div>
+            <div class="content">
+                <div id="content-list" class="content-list">
+                    <div class="loading">Loading content...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // UI State Management
+        let currentCategory = '';
+        
+        // DOM Elements
+        const launchpad = document.getElementById('launchpad');
+        const detailScreen = document.getElementById('detail-screen');
+        const backButton = document.getElementById('back-button');
+        const detailTitle = document.getElementById('detail-title');
+        const contentList = document.getElementById('content-list');
+        const categoryButtons = document.querySelectorAll('.category-button');
+
+        // Event Listeners
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const category = e.target.dataset.category;
+                showDetailScreen(category);
+            });
+        });
+
+        backButton.addEventListener('click', showLaunchpad);
+
+        // Navigation Functions
+        function showDetailScreen(category) {
+            currentCategory = category;
+            
+            // Update title
+            const categoryNames = {
+                'names': 'Names',
+                'emails': 'Emails',
+                'phones': 'Phones',
+                'addresses': 'Addresses'
+            };
+            detailTitle.textContent = categoryNames[category] || 'Content';
+            
+            // Show loading state
+            contentList.innerHTML = '<div class="loading">Loading content...</div>';
+            
+            // Animate transition
+            launchpad.style.display = 'none';
+            detailScreen.style.display = 'block';
+            detailScreen.classList.add('fade-in');
+            
+            // Request content from plugin
+            parent.postMessage({
+                pluginMessage: {
+                    type: 'get-content',
+                    category: category
+                }
+            }, '*');
+        }
+
+        function showLaunchpad() {
+            launchpad.style.display = 'block';
+            detailScreen.style.display = 'none';
+            currentCategory = '';
+        }
+
+        function renderContentList(data) {
+            if (!data || data.length === 0) {
+                contentList.innerHTML = '<div class="loading">No content available</div>';
+                return;
+            }
+
+            contentList.innerHTML = data.map(item => 
+                `<div class="content-item" data-content="${item}">${item}</div>`
+            ).join('');
+
+            // Add click handlers to content items
+            const contentItems = contentList.querySelectorAll('.content-item');
+            contentItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    const content = e.target.dataset.content;
+                    injectContent(content);
+                });
+            });
+        }
+
+        function injectContent(content) {
+            parent.postMessage({
+                pluginMessage: {
+                    type: 'inject-content',
+                    content: content
+                }
+            }, '*');
+        }
+
+        // Listen for messages from the plugin
+        window.addEventListener('message', (event) => {
+            const msg = event.data.pluginMessage;
+            if (!msg) return;
+
+            switch (msg.type) {
+                case 'content-data':
+                    if (msg.category === currentCategory) {
+                        renderContentList(msg.data);
+                    }
+                    break;
+                default:
+                    console.log('Unknown message type:', msg.type);
+            }
+        });
+
+        // Initialize
+        console.log('JustGo Content UI initialized');
+    </script>
+</body>
+</html>
+

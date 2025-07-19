@@ -1,0 +1,15 @@
+{
+  "name": "justgo-content",
+  "version": "1.0.0",
+  "description": "A minimalist Figma plugin for content injection",
+  "main": "code.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.75.0",
+    "esbuild": "^0.25.7",
+    "typescript": "^5.0.0"
+  }
+}
