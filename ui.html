@@ -57,6 +57,7 @@
 
         .content {
             flex: 1;
+            min-height: 0;
             overflow-y: auto;
             padding: 14px;
         }
@@ -97,7 +98,12 @@
 
         /* Detail Screen */
         .detail-screen {
-            display: none;
+            /* Remove display: none; */
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            /* Optionally, hide with visibility or position if needed */
         }
 
         .content-list {
@@ -256,7 +262,7 @@
             
             // Animate transition
             launchpad.style.display = 'none';
-            detailScreen.style.display = 'block';
+            detailScreen.style.display = 'flex';
             detailScreen.classList.add('fade-in');
             
             // Request content from plugin
