@@ -17,37 +17,48 @@
             color: #F5F6FA;
             height: 100vh;
             overflow: hidden;
+            padding: 16px;
         }
 
         .container {
-            height: 100vh;
+            height: 100%;
             display: flex;
             flex-direction: column;
         }
 
         .header {
-            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            height: 44px;
             border-bottom: 1px solid #23272A;
             background: #23272A;
+            margin-top: -16px;
+            margin-left: -16px;
+            margin-right: -16px;
+            width: calc(100% + 32px);
+            padding-left: 12px;
         }
 
         .title {
-            font-size: 16px;
-            font-weight: 600;
+            flex: 1;
+            font-size: 20px;
+            font-weight: 500;
             color: #F5F6FA;
             text-align: center;
+            margin-right: 32px;
         }
 
         .back-button {
             background: none;
             border: none;
-            font-size: 14px;
-            color: #4caf4f;
+            font-size: 24px;
+            color: #F5F6FA;
             cursor: pointer;
-            padding: 8px 0;
+            padding: 0;
+            margin-right: 8px;
             display: flex;
             align-items: center;
-            gap: 4px;
             transition: opacity 0.2s;
         }
 
@@ -69,8 +80,10 @@
 
         .category-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px 16px;
+            justify-items: center;
+            margin-top: 0;
         }
 
         .category-button {
@@ -163,13 +176,13 @@
         .category-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
+            gap: 16px 16px;
             justify-items: center;
-            margin-top: 16px;
+            margin-top: 0;
         }
         .category-button.square {
-            width: 132px;
-            height: 132px;
+            width: 124px;
+            height: 124px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -187,10 +200,29 @@
             border-color: #4caf4f;
             box-shadow: 0 4px 16px rgba(0,0,0,0.16);
         }
+        .splash-screen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #181A1B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .splash-content {
+            color: #F5F6FA;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-family: inherit;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div id="splash" class="splash-screen">
+        <div class="splash-content">Loading...</div>
+    </div>
+    <div class="container" style="display:none;" id="main-container">
         <!-- Launchpad Screen -->
         <div id="launchpad" class="launchpad">
             <div class="header">
@@ -209,10 +241,8 @@
         <!-- Detail Screen -->
         <div id="detail-screen" class="detail-screen">
             <div class="header">
-                <button class="back-button" id="back-button">
-                    ← Back
-                </button>
-                <h2 class="title" id="detail-title">Content</h2>
+                <button class="back-button" id="back-button">&#8592;</button>
+                <span class="title" id="detail-title">Content</span>
             </div>
             <div class="content">
                 <div id="content-list" class="content-list">
@@ -258,7 +288,7 @@
             detailTitle.textContent = categoryNames[category] || 'Content';
             
             // Show loading state
-            contentList.innerHTML = '<div class="loading">Loading content...</div>';
+            contentList.innerHTML = '';
             
             // Animate transition
             launchpad.style.display = 'none';
@@ -323,6 +353,18 @@
                 default:
                     console.log('Unknown message type:', msg.type);
             }
+        });
+
+        // Splash screen logic
+        const splash = document.getElementById('splash');
+        const mainContainer = document.getElementById('main-container');
+        function hideSplash() {
+            splash.style.display = 'none';
+            mainContainer.style.display = '';
+        }
+        // Simulate plugin ready (replace with real event if needed)
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(hideSplash, 600); // Show splash for at least 600ms
         });
 
         // Initialize
