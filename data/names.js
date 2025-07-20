@@ -1,4 +1,5 @@
 const names = [
+    "Jason Wales",
     "Alice Smith",
     "Bob Johnson",
     "Charlie Brown",
