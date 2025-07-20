@@ -12,8 +12,20 @@ const contentData = { names, emails, phones, addresses };
 // Show the plugin UI
 figma.showUI(__html__, { width: 320, height: 480 });
 
+// Dynamically load a data chunk for a category
+async function loadData(category: string, chunk: string = 'a'): Promise<string[]> {
+  try {
+    // Example: import('./data/names-a')
+    const module = await import(`./data/${category}-${chunk}`);
+    return module.default || [];
+  } catch (e) {
+    figma.notify(`Could not load data for ${category}-${chunk}`);
+    return [];
+  }
+}
+
 // Handle messages from the UI
-figma.ui.onmessage = (msg) => {
+figma.ui.onmessage = async (msg) => {
   // Unwrap pluginMessage if present (Figma UI sends { pluginMessage: ... })
   if ('pluginMessage' in msg) {
     msg = msg.pluginMessage;
@@ -26,7 +38,7 @@ figma.ui.onmessage = (msg) => {
       figma.ui.postMessage({
         type: 'content-data',
         category: msg.category,
-        data: contentData[msg.category as keyof typeof contentData] || []
+        data: [] // Not used in new logic, but kept for compatibility
       });
       break;
 
@@ -42,7 +54,7 @@ figma.ui.onmessage = (msg) => {
 
     case 'fill-category':
       if (typeof msg.category === 'string') {
-        fillSelectedTextNodes(msg.category);
+        await fillSelectedTextNodes(msg.category, msg.chunk || 'a');
       }
       break;
 
@@ -81,9 +93,9 @@ async function injectContentToSelectedText(content: string) {
   }
 }
 
-async function fillSelectedTextNodes(category: string) {
+async function fillSelectedTextNodes(category: string, chunk: string = 'a') {
   const selection = figma.currentPage.selection;
-  const arr = contentData[category as keyof typeof contentData] || [];
+  const arr = await loadData(category, chunk);
   if (!arr.length) {
     figma.notify(`No data for category "${category}"`);
     return;
@@ -98,9 +110,7 @@ async function fillSelectedTextNodes(category: string) {
       try {
         await figma.loadFontAsync(node.fontName as FontName);
         node.characters = value;
-      } catch (e) {
-        // skip if font can't be loaded
-      }
+      } catch (e) {}
     }
   }
   figma.notify(`Filled ${category} in selected text nodes.`);
