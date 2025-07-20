@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const emails = [
     "alice.smith@example.com",
     "bob.johnson@example.com",
@@ -12,4 +10,4 @@ const emails = [
     "ian.thompson@example.com",
     "julia.martinez@example.com"
 ];
-exports.default = emails;
+export default emails;

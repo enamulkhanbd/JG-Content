@@ -14,6 +14,10 @@ figma.showUI(__html__, { width: 320, height: 480 });
 
 // Handle messages from the UI
 figma.ui.onmessage = (msg) => {
+  // Unwrap pluginMessage if present (Figma UI sends { pluginMessage: ... })
+  if ('pluginMessage' in msg) {
+    msg = msg.pluginMessage;
+  }
   console.log('Received message:', msg);
 
   switch (msg.type) {
@@ -34,6 +38,12 @@ figma.ui.onmessage = (msg) => {
     case 'close-plugin':
       // Close the plugin
       figma.closePlugin();
+      break;
+
+    case 'fill-category':
+      if (typeof msg.category === 'string') {
+        fillSelectedTextNodes(msg.category);
+      }
       break;
 
     default:
@@ -69,6 +79,31 @@ async function injectContentToSelectedText(content: string) {
     console.error('Error loading font:', error);
     figma.notify('Error: Could not load font');
   }
+}
+
+async function fillSelectedTextNodes(category: string) {
+  const selection = figma.currentPage.selection;
+  const arr = contentData[category as keyof typeof contentData] || [];
+  if (!arr.length) {
+    figma.notify(`No data for category "${category}"`);
+    return;
+  }
+  if (!selection.length) {
+    figma.notify('Please select at least one text node.');
+    return;
+  }
+  for (const node of selection) {
+    if (node.type === 'TEXT') {
+      const value = arr[Math.floor(Math.random() * arr.length)];
+      try {
+        await figma.loadFontAsync(node.fontName as FontName);
+        node.characters = value;
+      } catch (e) {
+        // skip if font can't be loaded
+      }
+    }
+  }
+  figma.notify(`Filled ${category} in selected text nodes.`);
 }
 
 // Handle plugin close

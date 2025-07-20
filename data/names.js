@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const names = [
     "Alice Smith",
     "Bob Johnson",
@@ -12,4 +10,4 @@ const names = [
     "Ian Thompson",
     "Julia Martinez"
 ];
-exports.default = names;
+export default names;

@@ -49,6 +49,7 @@
 
         .icon-item:hover .icon-card {
             background: rgba(255, 255, 255, 0.08);
+            cursor: pointer;
         }
 
         .icon-placeholder {
@@ -144,110 +145,21 @@
     </div>
 
     <script>
-        // UI State Management
-        let currentCategory = '';
-        
-        // DOM Elements
-        const launchpad = document.getElementById('launchpad');
-        const detailScreen = document.getElementById('detail-screen');
-        const backButton = document.getElementById('back-button');
-        const detailTitle = document.getElementById('detail-title');
-        const contentList = document.getElementById('content-list');
-        const categoryButtons = document.querySelectorAll('.category-button');
-
-        // Event Listeners
-        categoryButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                const category = e.target.dataset.category;
-                showDetailScreen(category);
-            });
-        });
-
-        backButton.addEventListener('click', showLaunchpad);
-
-        // Navigation Functions
-        function showDetailScreen(category) {
-            currentCategory = category;
-            
-            // Update title
-            const categoryNames = {
-                'names': 'Names',
-                'emails': 'Emails',
-                'phones': 'Phones',
-                'addresses': 'Addresses'
-            };
-            detailTitle.textContent = categoryNames[category] || 'Content';
-            
-            // Show loading state
-            contentList.innerHTML = '';
-            
-            // Animate transition
-            launchpad.style.display = 'none';
-            detailScreen.style.display = 'flex';
-            detailScreen.classList.add('fade-in');
-            
-            // Request content from plugin
-            parent.postMessage({
-                pluginMessage: {
-                    type: 'get-content',
-                    category: category
-                }
-            }, '*');
+    document.querySelectorAll('.icon-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const label = item.querySelector('.icon-name')?.textContent?.toLowerCase();
+        const categoryMap = {
+          name: 'names',
+          address: 'addresses',
+          email: 'emails',
+          phone: 'phones'
+        };
+        const category = categoryMap[label];
+        if (category) {
+          parent.postMessage({ pluginMessage: { type: 'fill-category', category } }, '*');
         }
-
-        function showLaunchpad() {
-            launchpad.style.display = 'block';
-            detailScreen.style.display = 'none';
-            currentCategory = '';
-        }
-
-        function renderContentList(data) {
-            if (!data || data.length === 0) {
-                contentList.innerHTML = '<div class="loading">No content available</div>';
-                return;
-            }
-
-            contentList.innerHTML = data.map(item => 
-                `<div class="content-item" data-content="${item}">${item}</div>`
-            ).join('');
-
-            // Add click handlers to content items
-            const contentItems = contentList.querySelectorAll('.content-item');
-            contentItems.forEach(item => {
-                item.addEventListener('click', (e) => {
-                    const content = e.target.dataset.content;
-                    injectContent(content);
-                });
-            });
-        }
-
-        function injectContent(content) {
-            parent.postMessage({
-                pluginMessage: {
-                    type: 'inject-content',
-                    content: content
-                }
-            }, '*');
-        }
-
-        // Listen for messages from the plugin
-        window.addEventListener('message', (event) => {
-            const msg = event.data.pluginMessage;
-            if (!msg) return;
-
-            switch (msg.type) {
-                case 'content-data':
-                    if (msg.category === currentCategory) {
-                        renderContentList(msg.data);
-                    }
-                    break;
-                default:
-                    console.log('Unknown message type:', msg.type);
-            }
-        });
-
-        // Initialize
-        console.log('JustGo Content UI initialized');
+      });
+    });
     </script>
 </body>
 </html>

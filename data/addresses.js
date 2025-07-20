@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const addresses = [
     "221B Baker Street, London NW1 6XE, UK",
     "10 Downing Street, London SW1A 2AA, UK",
@@ -12,4 +10,4 @@ const addresses = [
     "34 Market Place, York YO1 8SJ, UK",
     "5 St. Mary's Gate, Sheffield S1 4LN, UK"
 ];
-exports.default = addresses;
+export default addresses;

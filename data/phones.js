@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const phones = [
     "+1 (555) 123-4567",
     "+1 (555) 234-5678",
@@ -12,4 +10,4 @@ const phones = [
     "+1 (555) 901-2345",
     "+1 (555) 012-3456"
 ];
-exports.default = phones;
+export default phones;
