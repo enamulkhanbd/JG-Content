@@ -39,6 +39,7 @@ JG-Content/
 ## Development
 
 ### Prerequisites
+
 - Node.js and npm
 - Figma desktop app
 
@@ -68,6 +69,7 @@ JG-Content/
    - The plugin will appear in your plugins list
 
 ### Workflow
+
 - Edit `code.ts`, `ui.html`, or any file in `data/`
 - Run `npm run build` after changes
 - Reload the plugin in Figma
@@ -88,4 +90,3 @@ JG-Content/
 ## License
 
 Internal tool for design team use only.
-

@@ -1,165 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JustGo Content Figma Plugin</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            width: 320px;
-            background: #001401;
-            overflow: hidden;
-            padding: 0; /* Remove or reduce this */
-        }
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        width: 320px;
+        background: #001401;
+        overflow: hidden;
+        padding: 0; /* Remove or reduce this */
+      }
 
-        .container {
-            width: 100%;
-            height: 100vh; /* Use height instead of min-height */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 16px; /* Add padding here if needed */
-        }
+      .container {
+        width: 100%;
+        height: 100vh; /* Use height instead of min-height */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 16px; /* Add padding here if needed */
+      }
 
-        .icons-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            justify-items: center;
-        }
+      .icons-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        justify-items: center;
+      }
 
+      .icon-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 12px;
+        width: 85.33px;
+        height: 85.33px;
+        transition: background-color 0.2s;
+      }
 
-        .icon-card {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 12px;
-            width: 85.33px;
-            height: 85.33px;
-            transition: background-color 0.2s;
-        }
+      .icon-item:hover .icon-card {
+        background: rgba(255, 255, 255, 0.08);
+        cursor: pointer;
+      }
 
-        .icon-item:hover .icon-card {
-            background: rgba(255, 255, 255, 0.08);
-            cursor: pointer;
-        }
+      .icon-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+      }
 
-        .icon-placeholder {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-        }
+      .icon-name {
+        font-family: "Inter", sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        color: #ffffff;
+        text-align: center;
+        line-height: 1.2;
+        word-break: break-word;
+        padding-top: 8px;
+      }
 
-        .icon-name {
-            font-family: 'Inter', sans-serif;
-            font-size: 12px;
-            font-weight: 400;
-            color: #ffffff;
-            text-align: center;
-            line-height: 1.2;
-            word-break: break-word;
-            padding-top: 8px;
-        }
-
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 8px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.72);
-            font-size: 10px;
-            /* Remove margin-top for sticky effect */
-            margin-top: 0;
-        }
-        .footer-left {
-            font-weight: 400;
-        }
-        .footer-right {
-            font-style: italic;
-        }
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 10px;
+        /* Remove margin-top for sticky effect */
+        margin-top: 0;
+      }
+      .footer-left {
+        font-weight: 400;
+      }
+      .footer-right {
+        font-style: italic;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <!-- Icons Grid -->
-        <div class="icons-grid">
-            <div class="icon-item">
-                <div class="icon-card">
-                    <div class="icon-placeholder">👤</div>
-                </div>
-                <div class="icon-name">Avatar</div>
+      <!-- Icons Grid -->
+      <div class="icons-grid">
+        <div class="icon-item">
+          <div class="icon-card">
+            <div class="icon-placeholder">
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_216_1020)">
+                  <path
+                    d="M12 23C11.6167 23 11.2334 22.975 10.85 22.925C10.4667 22.875 10.0834 22.8083 9.70004 22.725C8.23337 23.8083 6.62087 24.1958 4.86254 23.8875C3.1042 23.5792 1.75837 22.6417 0.825035 21.075C0.0750352 19.8417 -0.166631 18.5167 0.100035 17.1C0.366702 15.6833 1.00837 14.4917 2.02504 13.525V13.45C0.991702 12.5 0.350035 11.3292 0.100035 9.9375C-0.149965 8.54583 0.0833685 7.23333 0.800035 6C1.4167 4.95 2.2667 4.15417 3.35004 3.6125C4.43337 3.07083 5.57504 2.88333 6.77504 3.05C7.30837 2.1 8.03754 1.35417 8.96254 0.8125C9.88754 0.270833 10.9 0 12 0C13.1 0 14.1125 0.270833 15.0375 0.8125C15.9625 1.35417 16.6917 2.1 17.225 3.05C18.425 2.88333 19.5667 3.07083 20.65 3.6125C21.7334 4.15417 22.5834 4.95 23.2 6C23.9167 7.23333 24.15 8.54583 23.9 9.9375C23.65 11.3292 23.0084 12.5 21.975 13.45V13.525C22.9917 14.4917 23.6334 15.6833 23.9 17.1C24.1667 18.5167 23.925 19.8417 23.175 21.075C22.2417 22.6417 20.8959 23.5792 19.1375 23.8875C17.3792 24.1958 15.7667 23.8083 14.3 22.725C13.9167 22.8083 13.5334 22.875 13.15 22.925C12.7667 22.975 12.3834 23 12 23ZM12 21C14.2334 21 16.125 20.225 17.675 18.675C19.225 17.125 20 15.2333 20 13C20 12.5167 19.9625 12.0542 19.8875 11.6125C19.8125 11.1708 19.7 10.7417 19.55 10.325C19.0667 10.6583 18.5334 10.9167 17.95 11.1C17.3667 11.2833 16.7584 11.375 16.125 11.375C14.425 11.375 12.9792 10.7792 11.7875 9.5875C10.5959 8.39583 10 6.95 10 5.25C8.2667 5.68333 6.83337 6.61667 5.70004 8.05C4.5667 9.48333 4.00004 11.1333 4.00004 13C4.00004 15.2333 4.77504 17.125 6.32504 18.675C7.87504 20.225 9.7667 21 12 21ZM9.00004 15.25C8.65004 15.25 8.3542 15.1292 8.11254 14.8875C7.87087 14.6458 7.75004 14.35 7.75004 14C7.75004 13.65 7.87087 13.3542 8.11254 13.1125C8.3542 12.8708 8.65004 12.75 9.00004 12.75C9.35004 12.75 9.64587 12.8708 9.88754 13.1125C10.1292 13.3542 10.25 13.65 10.25 14C10.25 14.35 10.1292 14.6458 9.88754 14.8875C9.64587 15.1292 9.35004 15.25 9.00004 15.25ZM15 15.25C14.65 15.25 14.3542 15.1292 14.1125 14.8875C13.8709 14.6458 13.75 14.35 13.75 14C13.75 13.65 13.8709 13.3542 14.1125 13.1125C14.3542 12.8708 14.65 12.75 15 12.75C15.35 12.75 15.6459 12.8708 15.8875 13.1125C16.1292 13.3542 16.25 13.65 16.25 14C16.25 14.35 16.1292 14.6458 15.8875 14.8875C15.6459 15.1292 15.35 15.25 15 15.25Z"
+                    fill="white"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_216_1020">
+                    <rect width="24" height="24" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
             </div>
-            <div class="icon-item">
-                <div class="icon-card">
-                    <div class="icon-placeholder">🏷️</div>
-                </div>
-                <div class="icon-name">Name</div>
+          </div>
+          <div class="icon-name">Avatar</div>
+        </div>
+        <div class="icon-item">
+          <div class="icon-card">
+            <div class="icon-placeholder">
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 40 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M22.9862 20.3195C25.2362 18.7453 27.0001 17.0114 28.2778 15.1178C29.5556 13.2245 30.1945 11.3241 30.1945 9.41659C30.1945 8.34242 30.0162 7.52297 29.6595 6.95825C29.3031 6.39353 28.8194 6.11117 28.2083 6.11117C26.7174 6.11117 25.4351 7.26617 24.3612 9.57617C23.287 11.8864 22.7499 14.5694 22.7499 17.6249C22.7499 18.1249 22.7662 18.5995 22.7987 19.0487C22.8309 19.4976 22.8934 19.9212 22.9862 20.3195ZM4.99992 34.9999V32.222H7.77784V34.9999H4.99992ZM11.8053 34.9999V32.222H14.5833V34.9999H11.8053ZM18.6112 34.9999V32.222H21.3887V34.9999H18.6112ZM25.4166 34.9999V32.222H28.1945V34.9999H25.4166ZM32.222 34.9999V32.222H34.9999V34.9999H32.222ZM5.27784 28.222L3.33325 26.2778L5.99992 23.6112L3.33325 20.9445L5.27784 18.9999L7.9445 21.6666L10.6112 18.9999L12.5553 20.9445L9.88867 23.6112L12.5553 26.2778L10.6112 28.222L7.9445 25.5553L5.27784 28.222ZM25.7499 26.6666C24.8796 26.6666 24.0926 26.4837 23.3887 26.1178C22.6851 25.7523 22.0833 25.1991 21.5833 24.4583C20.8888 24.8471 20.1735 25.2083 19.4374 25.5416C18.7013 25.8749 17.9351 26.1944 17.1387 26.4999L16.1666 23.9028C16.9444 23.6064 17.6874 23.2985 18.3958 22.9791C19.1041 22.6596 19.7916 22.3101 20.4583 21.9303C20.2824 21.3009 20.1551 20.6203 20.0762 19.8887C19.9976 19.1573 19.9583 18.3749 19.9583 17.5416C19.9583 13.5046 20.736 10.1273 22.2916 7.4095C23.8471 4.692 25.8194 3.33325 28.2083 3.33325C29.6341 3.33325 30.7823 3.89117 31.6528 5.007C32.5231 6.12256 32.9583 7.63867 32.9583 9.55534C32.9583 11.9814 32.1735 14.3612 30.6041 16.6945C29.0346 19.0278 26.8471 21.1251 24.0416 22.9862C24.2916 23.2917 24.5624 23.5209 24.8541 23.6737C25.1458 23.8264 25.4583 23.9028 25.7916 23.9028C26.6805 23.9028 27.6226 23.4723 28.6178 22.6112C29.6134 21.7501 30.537 20.5509 31.3887 19.0137L33.9303 20.2083C33.7731 20.8471 33.6713 21.4628 33.6249 22.0553C33.5785 22.6481 33.6063 23.2685 33.7083 23.9166C34.0602 23.7408 34.4421 23.4908 34.8541 23.1666C35.266 22.8424 35.6664 22.4396 36.0553 21.9583L38.2637 23.6666C37.5601 24.5741 36.7731 25.3009 35.9028 25.847C35.0323 26.3934 34.222 26.6666 33.472 26.6666C32.8331 26.6666 32.2984 26.4513 31.8678 26.0208C31.4373 25.5902 31.1434 24.9583 30.9862 24.1249C30.1898 24.9491 29.3471 25.5787 28.4583 26.0137C27.5694 26.4489 26.6666 26.6666 25.7499 26.6666Z"
+                  fill="white"
+                />
+              </svg>
             </div>
-            <div class="icon-item">
-                <div class="icon-card">
-                    <div class="icon-placeholder">🏠</div>
-                </div>
-                <div class="icon-name">Address</div>
+          </div>
+          <div class="icon-name">Name</div>
+        </div>
+        <div class="icon-item">
+          <div class="icon-card">
+            <div class="icon-placeholder">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <path
+                  d="M11.3334 5.81064V22.4307L5.5738 26.4819C4.95017 26.9203 4.10519 26.5263 4.00793 25.8031L3.99869 25.6637V11.4871C3.99869 11.208 4.11517 10.9439 4.31619 10.7562L4.4236 10.669L11.3334 5.81064ZM27.9925 6.19707L28.0019 6.33639V20.5131C28.0019 20.7921 27.8853 21.0563 27.6843 21.244L27.5769 21.3312L20.6667 26.1867V9.56531L26.4267 5.51829C27.0504 5.07991 27.8953 5.47395 27.9925 6.19707ZM13.3333 5.81197L18.6667 9.56131V26.184L13.3333 22.432V5.81197Z"
+                  fill="white"
+                />
+              </svg>
             </div>
-            <div class="icon-item">
-                <div class="icon-card">
-                    <div class="icon-placeholder">📧</div>
-                </div>
-                <div class="icon-name">Email</div>
-            </div>
-            <div class="icon-item">
-                <div class="icon-card">
-                    <div class="icon-placeholder">📱</div>
-                </div>
-                <div class="icon-name">Phone</div>
-            </div>
-            <div class="icon-item">
-                <div class="icon-card">
-                    <div class="icon-placeholder">📅</div>
-                </div>
-                <div class="icon-name">Date</div>
-            </div>
-            <div class="icon-item">
-                <div class="icon-card">
-                    <div class="icon-placeholder">💰</div>
-                </div>
-                <div class="icon-name">Currency</div>
-            </div>
+          </div>
+          <div class="icon-name">Address</div>
         </div>
 
-        <!-- Footer -->
-        <div class="footer">
-            <span class="footer-left">JustGo UX Team</span>
-            <span class="footer-right"><i>v1.0.0</i></span>
-         </div>
+        <div class="icon-item">
+          <div class="icon-card">
+            <div class="icon-placeholder">
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 40 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20.0026 19.7221C20.8434 19.7221 21.5624 19.4227 22.1597 18.8238C22.7569 18.2252 23.0555 17.5053 23.0555 16.6642C23.0555 15.8234 22.7561 15.1043 22.1572 14.5071C21.5586 13.9099 20.8387 13.6113 19.9976 13.6113C19.1567 13.6113 18.4377 13.9107 17.8405 14.5096C17.2433 15.1082 16.9447 15.8281 16.9447 16.6692C16.9447 17.51 17.2441 18.2291 17.843 18.8263C18.4416 19.4235 19.1615 19.7221 20.0026 19.7221ZM20.0001 36.6667C15.5279 32.8612 12.1876 29.3264 9.97925 26.0625C7.77091 22.7987 6.66675 19.7778 6.66675 17C6.66675 12.8334 8.00703 9.51393 10.6876 7.04171C13.3681 4.56949 16.4723 3.33337 20.0001 3.33337C23.5279 3.33337 26.632 4.56949 29.3126 7.04171C31.9931 9.51393 33.3334 12.8334 33.3334 17C33.3334 19.7778 32.2292 22.7987 30.0209 26.0625C27.8126 29.3264 24.4723 32.8612 20.0001 36.6667Z"
+                  fill="white"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="icon-name">Email</div>
+        </div>
+        <div class="icon-item">
+          <div class="icon-card">
+            <div class="icon-placeholder">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <path
+                  d="M10.3628 3.25199L11.7982 2.79331C13.1433 2.36351 14.5804 3.05811 15.1565 4.41643L16.3028 7.11956C16.8024 8.29749 16.5252 9.68271 15.6175 10.5442L13.0917 12.9415C13.2476 14.3755 13.7296 15.7875 14.5377 17.1776C15.346 18.5676 16.3553 19.7207 17.5659 20.6368L20.5995 19.6252C21.7493 19.2417 23.0016 19.6824 23.7069 20.7187L25.35 23.1327C26.17 24.3372 26.0225 25.9991 25.0051 27.0204L23.9148 28.1149C22.8296 29.2044 21.2796 29.5996 19.8457 29.1524C16.4605 28.0964 13.3481 24.9615 10.5084 19.7476C7.6646 14.526 6.66093 10.0959 7.49743 6.45719C7.84943 4.92609 8.93944 3.70679 10.3628 3.25199Z"
+                  fill="white"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="icon-name">Phone</div>
+        </div>
+        <div class="icon-item">
+          <div class="icon-card">
+            <div class="icon-placeholder">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <path
+                  d="M23.6667 4C26.0599 4 28 5.94009 28 8.33333V23.6667C28 26.0599 26.0599 28 23.6667 28H8.33333C5.94009 28 4 26.0599 4 23.6667V8.33333C4 5.94009 5.94009 4 8.33333 4H23.6667ZM23.6667 6H8.33333C7.04467 6 6 7.04467 6 8.33333V17.3333H12C12.5063 17.3333 12.9247 17.7096 12.9909 18.1976L13 18.3333C13 19.9901 14.3432 21.3333 16 21.3333C17.5879 21.3333 18.8875 20.0997 18.9931 18.5387L19 18.3333C19 17.7811 19.4477 17.3333 20 17.3333H26V8.33333C26 7.10911 25.0572 6.10508 23.858 6.00773L23.6667 6ZM9 12.6667H23C23.5523 12.6667 24 13.1144 24 13.6667C24 14.1729 23.6237 14.5913 23.1357 14.6576L23 14.6667H9C8.44772 14.6667 8 14.2189 8 13.6667C8 13.1604 8.3762 12.742 8.86431 12.6758L9 12.6667ZM9 8.66667H23C23.5523 8.66667 24 9.11439 24 9.66667C24 10.1729 23.6237 10.5913 23.1357 10.6575L23 10.6667H9C8.44772 10.6667 8 10.2189 8 9.66667C8 9.1604 8.3762 8.74201 8.86431 8.6758L9 8.66667Z"
+                  fill="white"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="icon-name">Date</div>
+        </div>
+        <div class="icon-item">
+          <div class="icon-card">
+            <div class="icon-placeholder">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <path
+                  d="M8.66667 2.66667C7.93029 2.66667 7.33333 3.26363 7.33333 4V4.14868C4.66135 4.75497 2.66667 7.14455 2.66667 9.99999V10.5114C2.66667 13.0295 4.11845 15.3217 6.39484 16.398L7.33333 16.8417V25.0284C6.15655 24.5141 5.33333 23.3399 5.33333 21.9724V20.8456C5.33333 20.1092 4.73637 19.5123 4 19.5123C3.26363 19.5123 2.66667 20.1092 2.66667 20.8456V21.9724C2.66667 24.8293 4.66279 27.2177 7.33333 27.8237V27.9888C7.33333 28.7251 7.93029 29.3221 8.66667 29.3221C9.40304 29.3221 10 28.7251 10 27.9888V27.8236C12.6734 27.2171 14.6667 24.8263 14.6667 21.9724V21.4757C14.6667 18.9623 13.2175 16.6741 10.9453 15.5999L10 15.1529V6.94404C11.1773 7.45841 12 8.63312 12 9.99999V11.1532C12 11.8896 12.5969 12.4865 13.3333 12.4865C14.0697 12.4865 14.6667 11.8896 14.6667 11.1532V9.99999C14.6667 7.14455 12.672 4.75499 10 4.14868V4C10 3.26363 9.40304 2.66667 8.66667 2.66667ZM5.33333 9.99999C5.33333 8.63311 6.15607 7.45839 7.33333 6.94403V13.8848C6.10555 13.2137 5.33333 11.9226 5.33333 10.5114V9.99999ZM10 25.0283V18.1095C11.2276 18.7775 12 20.0665 12 21.4757V21.9724C12 23.3387 11.1777 24.5137 10 25.0283ZM20 16C20 15.5575 20.0196 15.1235 20.0573 14.6996L21.3331 14.6995C22.0695 14.6993 22.6663 14.1023 22.6663 13.3659C22.6661 12.6295 22.0691 12.0327 21.3328 12.0327L20.5636 12.0328C20.8867 10.9558 21.3343 9.99728 21.8688 9.20005C23.0025 7.50915 24.4245 6.66667 25.8185 6.66667C26.3221 6.66667 26.8653 6.82203 27.2417 7.07983C27.8492 7.49596 28.6791 7.34079 29.0952 6.73325C29.5113 6.12573 29.3561 5.29589 28.7485 4.87976C27.8715 4.27897 26.7864 4 25.8185 4C23.2627 4 21.1087 5.54533 19.654 7.715C18.8295 8.94469 18.1963 10.4149 17.8012 12.0331L15.9999 12.0334C15.2635 12.0334 14.6665 12.6305 14.6667 13.3668C14.6667 14.1032 15.2637 14.7001 16.0001 14.7L17.3819 14.6999C17.3497 15.1277 17.3333 15.5616 17.3333 16C17.3333 16.012 17.3333 16.024 17.3333 16.036L15.9991 16.0372C15.2627 16.0377 14.6661 16.6352 14.6668 17.3716C14.6673 18.108 15.2648 18.7044 16.0012 18.7039L17.5464 18.7025C17.8861 20.8203 18.6193 22.742 19.654 24.2849C21.1087 26.4547 23.2627 28 25.8185 28C26.7485 28 27.866 27.7675 28.7813 27.1057C29.378 26.6741 29.512 25.8407 29.0804 25.244C28.6489 24.6472 27.8155 24.5133 27.2187 24.9448C26.8804 25.1895 26.36 25.3333 25.8185 25.3333C24.4245 25.3333 23.0025 24.4908 21.8688 22.8C21.1327 21.702 20.5615 20.2984 20.2533 18.7003L21.3344 18.6995C22.0708 18.6988 22.6672 18.1013 22.6667 17.3649C22.666 16.6285 22.0687 16.0321 21.3323 16.0328L20 16.0339C20 16.0225 20 16.0113 20 16Z"
+                  fill="white"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="icon-name">Currency</div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <span class="footer-left">JustGo UX Team</span>
+        <span class="footer-right"><i>v1.0.0</i></span>
+      </div>
     </div>
 
     <script>
-    document.querySelectorAll('.icon-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const label = item.querySelector('.icon-name')?.textContent?.toLowerCase();
-        const categoryMap = {
-          name: 'names',
-          address: 'addresses',
-          email: 'emails',
-          phone: 'phones'
-        };
-        const category = categoryMap[label];
-        if (category) {
-          parent.postMessage({ pluginMessage: { type: 'fill-category', category } }, '*');
-        }
+      document.querySelectorAll(".icon-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          const label = item
+            .querySelector(".icon-name")
+            ?.textContent?.toLowerCase();
+          const categoryMap = {
+            name: "names",
+            address: "addresses",
+            email: "emails",
+            phone: "phones",
+          };
+          const category = categoryMap[label];
+          if (category) {
+            parent.postMessage(
+              { pluginMessage: { type: "fill-category", category } },
+              "*",
+            );
+          }
+        });
       });
-    });
     </script>
-</body>
+  </body>
 </html>

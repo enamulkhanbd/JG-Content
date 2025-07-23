@@ -1,13 +1,13 @@
 const emails = [
-    "alice.smith@example.com",
-    "bob.johnson@example.com",
-    "charlie.brown@example.com",
-    "diana.prince@example.com",
-    "ethan.hunt@example.com",
-    "fiona.green@example.com",
-    "george.wilson@example.com",
-    "hannah.davis@example.com",
-    "ian.thompson@example.com",
-    "julia.martinez@example.com"
+    "alice.smith@justgo.com",
+    "bob.johnson@justgo.com",
+    "charlie.brown@justgo.com",
+    "diana.prince@justgo.com",
+    "ethan.hunt@justgo.com",
+    "fiona.green@justgo.com",
+    "george.wilson@justgo.com",
+    "hannah.davis@justgo.com",
+    "ian.thompson@justgo.com",
+    "julia.martinez@justgo.com"
 ];
 export default emails;
